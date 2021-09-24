@@ -12,6 +12,9 @@ function App() {
     console.log(e.target.dataset.property)
     const title = e.target.dataset.property;
     setTitle(title);
+    //get value based on current hovered title from person state
+    const value = person[title];
+    setValue(value);
   }
 
   //fetch person, we getting array with single object as response in data.results
@@ -45,7 +48,7 @@ function App() {
 
   }, [])
 
-  console.log(person)
+
   return (
     <main>
       <div className="block bcg-black">
@@ -54,12 +57,12 @@ function App() {
         <div className="container">
           <img src={defaultImage} alt="random user" className="user-img" />
           <p className="user-title">My {title} is</p>
-          <p className="user-value">value</p>
+          <p className="user-value">{value}</p>
           <div className="values-list">
-            <button className="icon" data-property="name" onMouseOver={handleMouseOver}>name</button>
+            <button className="icon" data-property="fullName" onMouseOver={handleMouseOver}>name</button>
             <button className="icon" data-property="email" onMouseOver={handleMouseOver}>email</button>
             <button className="icon" data-property="age" onMouseOver={handleMouseOver}>age</button>
-            <button className="icon" data-property="street" onMouseOver={handleMouseOver}>street</button>
+            <button className="icon" data-property="streetName" onMouseOver={handleMouseOver}>street</button>
             <button className="icon" data-property="phone" onMouseOver={handleMouseOver}>phone</button>
             <button className="icon" data-property="password" onMouseOver={handleMouseOver}>password</button>
           </div>
