@@ -59,8 +59,24 @@ function App() {
 
   }, [])
 
-  if (loading) {
-    return <Loading />
+
+  //component for display info of person after loading
+  const PersonInfo = () => {
+    return (<>
+      <img src={person.thumbnail ? person.thumbnail : defaultImage} alt="random user" className="user-img" />
+      <p className="user-title">My {title} is</p>
+      <p className="user-value">{value}</p>
+      <div className="values-list">
+        <button className="icon" data-property="fullName" onMouseOver={handleMouseOver}><BsFillPersonFill /></button>
+        <button className="icon" data-property="email" onMouseOver={handleMouseOver}><AiOutlineMail /></button>
+        <button className="icon" data-property="age" onMouseOver={handleMouseOver}><FaGem /></button>
+        <button className="icon" data-property="streetName" onMouseOver={handleMouseOver}><FaStreetView /></button>
+        <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
+        <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
+      </div>
+      <button className="btn">choose random</button>
+    </>
+    )
   }
 
   return (
@@ -69,22 +85,15 @@ function App() {
       </div>
       <div className="block">
         <div className="container">
-          <img src={person.thumbnail ? person.thumbnail : defaultImage} alt="random user" className="user-img" />
-          <p className="user-title">My {title} is</p>
-          <p className="user-value">{value}</p>
-          <div className="values-list">
-            <button className="icon" data-property="fullName" onMouseOver={handleMouseOver}><BsFillPersonFill /></button>
-            <button className="icon" data-property="email" onMouseOver={handleMouseOver}><AiOutlineMail /></button>
-            <button className="icon" data-property="age" onMouseOver={handleMouseOver}><FaGem /></button>
-            <button className="icon" data-property="streetName" onMouseOver={handleMouseOver}><FaStreetView /></button>
-            <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
-            <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
-          </div>
-          <button className="btn">choose random</button>
+          {loading ? <Loading /> : <PersonInfo />}
         </div>
       </div>
     </main>
   );
+
+
 }
+
+
 
 export default App;
