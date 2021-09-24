@@ -16,7 +16,7 @@ function App() {
 
   //display property of data attribute on every mouse over
   const handleMouseOver = (e) => {
-    console.log(e.target.dataset.property)
+
     //need to use currentTarget since we have icons inside buttons
     const title = e.currentTarget.dataset.property;
     setTitle(title);
@@ -29,29 +29,31 @@ function App() {
   const fetchPersons = async () => {
     const response = await fetch('https://randomuser.me/api/');
     const data = await response.json();
-    console.log(data.results);
     //transform result to good looking object
     const newPerson = data.results.map(item => {
       const { email, phone } = item;
       const { age } = item.dob;
       const { number, name } = item.location.street;
-      const streetName = `${number} ${name}`;
+      const street = `${number} ${name}`;
       const { password } = item.login;
       const { first, last } = item.name;
       const fullName = `${first} ${last}`;
       const { thumbnail } = item.picture;
       return {
-        fullName,
+        name: fullName,
         email,
         phone,
         age,
-        streetName,
+        street,
         password,
         thumbnail
       }
     })
-    console.log(newPerson)
     setPerson(newPerson[0])
+    //also show default value and title to name
+    setTitle('name');
+    console.log(newPerson)
+    setValue(newPerson[0].name);
     setLoading(false);
   }
   useEffect(() => {
@@ -62,20 +64,21 @@ function App() {
 
   //component for display info of person after loading
   const PersonInfo = () => {
-    return (<>
-      <img src={person.thumbnail ? person.thumbnail : defaultImage} alt="random user" className="user-img" />
-      <p className="user-title">My {title} is</p>
-      <p className="user-value">{value}</p>
-      <div className="values-list">
-        <button className="icon" data-property="fullName" onMouseOver={handleMouseOver}><BsFillPersonFill /></button>
-        <button className="icon" data-property="email" onMouseOver={handleMouseOver}><AiOutlineMail /></button>
-        <button className="icon" data-property="age" onMouseOver={handleMouseOver}><FaGem /></button>
-        <button className="icon" data-property="streetName" onMouseOver={handleMouseOver}><FaStreetView /></button>
-        <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
-        <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
-      </div>
-      <button className="btn">choose random</button>
-    </>
+    return (
+      <>
+        <img src={person.thumbnail ? person.thumbnail : defaultImage} alt="random user" className="user-img" />
+        <p className="user-title">My {title} is</p>
+        <p className="user-value">{value}</p>
+        <div className="values-list">
+          <button className="icon" data-property="name" onMouseOver={handleMouseOver}><BsFillPersonFill /></button>
+          <button className="icon" data-property="email" onMouseOver={handleMouseOver}><AiOutlineMail /></button>
+          <button className="icon" data-property="age" onMouseOver={handleMouseOver}><FaGem /></button>
+          <button className="icon" data-property="street" onMouseOver={handleMouseOver}><FaStreetView /></button>
+          <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
+          <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
+        </div>
+        <button className="btn">choose random</button>
+      </>
     )
   }
 
