@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { BsFillPersonFill } from 'react-icons/bs'
+import { AiOutlineMail, AiFillPhone } from 'react-icons/ai'
+import { FaStreetView, FaGem } from 'react-icons/fa'
+import { RiLockPasswordFill } from 'react-icons/ri'
+import Loading from "./components/Loading";
 const defaultImage = 'https://res.cloudinary.com/dljezd6qv/image/upload/v1631577257/react-birthday-reminder/avatar-placeholder.png'
 function App() {
 
@@ -7,10 +12,13 @@ function App() {
   //state for value of hovered element and state for value of current person element
   const [title, setTitle] = useState(null);
   const [value, setValue] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   //display property of data attribute on every mouse over
   const handleMouseOver = (e) => {
     console.log(e.target.dataset.property)
-    const title = e.target.dataset.property;
+    //need to use currentTarget since we have icons inside buttons
+    const title = e.currentTarget.dataset.property;
     setTitle(title);
     //get value based on current hovered title from person state
     const value = person[title];
@@ -31,23 +39,29 @@ function App() {
       const { password } = item.login;
       const { first, last } = item.name;
       const fullName = `${first} ${last}`;
+      const { thumbnail } = item.picture;
       return {
         fullName,
         email,
         phone,
         age,
         streetName,
-        password
+        password,
+        thumbnail
       }
     })
     console.log(newPerson)
     setPerson(newPerson[0])
+    setLoading(false);
   }
   useEffect(() => {
     fetchPersons();
 
   }, [])
 
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <main>
@@ -55,18 +69,18 @@ function App() {
       </div>
       <div className="block">
         <div className="container">
-          <img src={defaultImage} alt="random user" className="user-img" />
+          <img src={person.thumbnail ? person.thumbnail : defaultImage} alt="random user" className="user-img" />
           <p className="user-title">My {title} is</p>
           <p className="user-value">{value}</p>
           <div className="values-list">
-            <button className="icon" data-property="fullName" onMouseOver={handleMouseOver}>name</button>
-            <button className="icon" data-property="email" onMouseOver={handleMouseOver}>email</button>
-            <button className="icon" data-property="age" onMouseOver={handleMouseOver}>age</button>
-            <button className="icon" data-property="streetName" onMouseOver={handleMouseOver}>street</button>
-            <button className="icon" data-property="phone" onMouseOver={handleMouseOver}>phone</button>
-            <button className="icon" data-property="password" onMouseOver={handleMouseOver}>password</button>
+            <button className="icon" data-property="fullName" onMouseOver={handleMouseOver}><BsFillPersonFill /></button>
+            <button className="icon" data-property="email" onMouseOver={handleMouseOver}><AiOutlineMail /></button>
+            <button className="icon" data-property="age" onMouseOver={handleMouseOver}><FaGem /></button>
+            <button className="icon" data-property="streetName" onMouseOver={handleMouseOver}><FaStreetView /></button>
+            <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
+            <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
           </div>
-          <button className="btn">random</button>
+          <button className="btn">choose random</button>
         </div>
       </div>
     </main>
