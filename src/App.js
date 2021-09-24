@@ -56,6 +56,8 @@ function App() {
     setValue(newPerson[0].name);
     setLoading(false);
   }
+
+  //fetch person on component mount
   useEffect(() => {
     fetchPersons();
 
@@ -77,7 +79,7 @@ function App() {
           <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
           <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
         </div>
-        <button onClick={() => fetchPersons()} className="btn">choose random</button>
+        <button onClick={() => fetchPersons()} className="btn">get random user</button>
       </>
     )
   }
