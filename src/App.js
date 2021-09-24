@@ -77,7 +77,7 @@ function App() {
           <button className="icon" data-property="phone" onMouseOver={handleMouseOver}><AiFillPhone /></button>
           <button className="icon" data-property="password" onMouseOver={handleMouseOver}><RiLockPasswordFill /></button>
         </div>
-        <button className="btn">choose random</button>
+        <button onClick={() => fetchPersons()} className="btn">choose random</button>
       </>
     )
   }
