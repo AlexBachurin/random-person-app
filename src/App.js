@@ -4,10 +4,14 @@ function App() {
 
   //state for storing person after fetch
   const [person, setPerson] = useState(null)
-
+  //state for value of hovered element and state for value of current person element
+  const [title, setTitle] = useState(null);
+  const [value, setValue] = useState(null);
   //display property of data attribute on every mouse over
   const handleMouseOver = (e) => {
     console.log(e.target.dataset.property)
+    const title = e.target.dataset.property;
+    setTitle(title);
   }
 
   //fetch person, we getting array with single object as response in data.results
@@ -49,7 +53,7 @@ function App() {
       <div className="block">
         <div className="container">
           <img src={defaultImage} alt="random user" className="user-img" />
-          <p className="user-title">title</p>
+          <p className="user-title">My {title} is</p>
           <p className="user-value">value</p>
           <div className="values-list">
             <button className="icon" data-property="name" onMouseOver={handleMouseOver}>name</button>
