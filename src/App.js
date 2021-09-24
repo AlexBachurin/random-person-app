@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+const defaultImage = 'https://randomuser.me/api/portraits/men/75.jpg'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <div className="block bcg-block">
+      </div>
+      <div className="block">
+        <div className="container">
+          <img src={defaultImage} alt="random user" className="user-img" />
+        </div>
+      </div>
+    </main>
   );
 }
 
